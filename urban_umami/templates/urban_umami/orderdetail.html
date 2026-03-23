@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Bills</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="urban_umami web logo">
+                </a>
+            </div>
+
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}" id="mark">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{% url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="genarated_bill_section">
+            <h2>All Generated Bills</h2>
+            <div class="genarated_bill_main_section">
+                {% if order_list %}
+                {% for bill in order_list %}
+                <div class="genarated_bill_main_section_next">
+                    <p><b>Customer:</b> {{ bill.customer }}</p>
+                    <p><b>Phone:</b> {{ bill.phone }}</p>
+                    <p><b>Table:</b> {{ bill.table }}</p>
+                    <p><b>Date:</b> {{ bill.date }}</p>
+                    <p><b>Time:</b> {{ bill.time }}</p>
+                    <p><b>Items:</b> {{ bill.items }}</p>
+                    <p><b>Total:</b> ₹{{ bill.total }}</p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No orders yet</p>
+                {% endif %}
+            </div>
+            
+        </div>
+
+    </main>
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+
+            <div class="resturant_footer_div2">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+
+            <p class="resturant_copy">&copy; 2025 Urban Umami</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

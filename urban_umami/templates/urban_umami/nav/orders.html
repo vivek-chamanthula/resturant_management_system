@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORDERS</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="urban_umami web logo">
+                </a>
+            </div>
+
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}" id="mark">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{% url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="order_main_section">
+            <div class="order_main_section_left">
+                <h2>Your Orders</h2>
+                <div id="orderList">
+                    {% for item in order_items %}
+                    <div class="order_row" data-image="{{ item.image}}" data-name="{{ item.name }}"
+                        data-price="{{ item.price }}">
+                        <img src="{{ item.image}}" alt="{{ item.name }}" class="order_item_img">
+                        <p>{{ item.name }}</p>
+                        <p>₹{{ item.price }}</p>
+                    </div>
+                    {% empty %}
+                    <p>No orders</p>
+                    {% endfor %}
+                </div>
+
+                <button onclick="confirmOrder()" style="margin-top:20px;">
+                    Confirm Order
+                </button>
+            </div>
+            <div class="order_main_section_right">
+                <h2>Bill</h2>
+                <label>Customer Name:</label>
+                <input type="text" id="customer"><br>
+                <label>Phone Number :</label>
+                <input type="text" id="phone"><br>
+                <label>Table Number :</label>
+                <input type="text" id="table"><br>
+                <div id="billItems"></div>
+                <h3 id="billTotal"></h3>
+                <form method="POST" action="{% url 'generate_bill' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="customer" id="f_customer">
+                    <input type="hidden" name="phone" id="f_phone">
+                    <input type="hidden" name="table" id="f_table">
+                    <input type="hidden" name="date" id="f_date">
+                    <input type="hidden" name="time" id="f_time">
+                    <input type="hidden" name="items" id="f_items">
+                    <input type="hidden" name="total" id="f_total">
+                    <button type="submit" id="generateBtn">
+                        Generate Bill
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+
+            <div class="resturant_footer_div2">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+
+            <p class="resturant_copy">&copy; 2025 Urban Umami</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUSTOMER REGISTRATION INFORMATION</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="resturant_register_info">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+            {% for c in customers %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.customer_name }}</td>
+                <td>{{ c.customer_email }}</td>
+                <td>{{ c.customer_number }}</td>
+                <td>{{ c.password }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

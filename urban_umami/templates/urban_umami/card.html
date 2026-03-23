@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CART</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="urban_umami web logo"></a>
+            </div>
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}" id="mark">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{% url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="resturant_login">
+               <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="resturant_menu_card_main">
+
+            {% for id, item in cart.items %}
+            <div class="cart_item" id="item-{{ id }}">
+                <div class="cart_content">
+                    <img src="{{ item.image }}" width="80">
+                    <h3>{{ item.name }}</h3>
+                    <p>₹ {{ item.price }}</p>
+
+                    <div class="counter">
+                        <button onclick="updateQty({{ id }}, 'dec')">-</button>
+                        <span id="qty-{{ id }}">{{ item.quantity }}</span>
+                        <button onclick="updateQty({{ id }}, 'inc')">+</button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No items in cart</p>
+            {% endfor %}
+
+            
+        </div>
+        <div class="resturant_menu_card_main_total">
+            <h3 class="head_h3" >Grand Total: ₹ <span id="grand-total">{{ total }}</span></h3>
+
+            <a href="{% url 'order' %}">
+                <button>Order Now</button>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants&src=typed_query&f=top"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

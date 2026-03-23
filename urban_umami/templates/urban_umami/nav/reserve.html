@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESERVATION</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .reservation-details {
+        background-image: url("{% static 'images/reserve.png' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top;
+    }
+</style>
+
+<body>
+
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="urban_umami web logo">
+                </a>
+            </div>
+
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                     <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{% url 'reserve' %}" id="mark">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+
+            <div>
+                <h2 id="reservation_main_head">Existing Reservations</h2>
+
+                <div class="reservations-wrapper">
+
+                    {% for r in reservations %}
+                    <div class="reservation-card">
+
+                        <div class="reservation-details">
+                            <div class="reservation-details-info">
+                                <p><strong>Reservation ID:</strong> {{ r.res_id }}</p>
+                                <p><strong>Name:</strong> {{ r.cus_name }}</p>
+                                <p><strong>Email:</strong> {{ r.cus_email }}</p>
+                                <p><strong>Date:</strong> {{ r.res_date }}</p>
+                                <p><strong>Time:</strong> {{ r.res_time }}</p>
+                                <p><strong>People:</strong> {{ r.num_people }}</p>
+                                <div class="reservation-actions">
+                                    {% if request.session.role == 'customer' %}
+                                    <button disabled style="cursor:not-allowed;">Update</button>
+                                    <button disabled style="cursor:not-allowed;">Delete</button>
+                                    {% else %}
+                                    <a href="{% url 'update_reservation' r.res_id %}"><button>Update</button></a>
+                                    <a href="{% url 'delete_reservation' r.res_id %}"
+                                        onclick="return confirm('Are you sure?')"><button>Delete</button></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% empty %}
+                    <p style="text-align:center;">No reservations yet</p>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <center>
+                <div class="reserve_main_div_1">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="reserve_btn">Update Reservation</button>
+                    </form>
+
+                </div>
+            </center>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{%url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="urban_umami web logo"></a>
+            </div>
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{%url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}" id="mark">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="resturant_banner">
+            <img src="{%static 'images/about.png' %}" alt="resturant banner image">
+        </article>
+        <section>
+            <div class="resturant_about_section">
+                <div><img src="{%static 'images/story.png' %}" alt="about detail image">
+                </div>
+                <div>
+                    <h1>Our Story</h1>
+                    <p>Welcome to Urban Umami, where flavours meet feelings and every dish tells a story.</p>
+                    <p>
+                        What started as a simple dream—to bring diverse global flavours under one warm, welcoming
+                        roof—soon
+                        turned into a delicious journey of passion, creativity, and unforgettable taste.</p>
+                    <p>
+                        At Urban Umami, we believe food is more than just something you eat.
+                        It’s a memory. A moment. A feeling.
+                        From the bold spices of India, to the soulful comfort of Chinese cuisine, to the rich elegance
+                        of
+                        Continental dishes… every flavour on our menu is crafted to spark joy with every bite.</p>
+
+                    <p> Our chefs come together like a family, combining tradition, innovation, and a love for
+                        extraordinary
+                        food. Each dish is prepared with care, freshness, and that special touch of umami—the taste that
+                        lingers long after the meal is done.
+                        Whether you’re here for a cosy dinner, a quick bite, or a celebration with your favourite
+                        people,
+                        Urban Umami is designed to make you feel at home.</p>
+                    <p>
+                        Here, every flavour has a story.
+                        And now, you are a part of it.</p>
+                </div>
+                <div>
+                    <h1>WHY WE EXIST - URBAN UMAMI</h1>
+                    <p>Urban Umami exists to celebrate the universal joy of flavour.
+                        We bring Indian spice, Chinese warmth, and Continental balance to one table.
+                        Our purpose is simple — create food that makes people feel alive.</p>
+                    <p>
+                        We believe every dish should carry emotion, comfort, and honesty.
+                        That’s why we craft each plate with fresh ingredients and soulful cooking.
+                        We exist to turn everyday meals into meaningful moments.</p>
+                    <p>
+                        Our mission is to serve quality that never compromises and taste that never fades.
+                        To welcome every guest like family and make every bite worth the visit.
+                        Urban Umami exists to make flavour a beautiful experience, every single time..</p>
+                    <div class="button_div"><button type="button"><a href="{% url 'menu' %}">Explore Our
+                                Menu</a></button></div>
+                </div>
+                <div><img src="{%static 'images/about_view.png' %}" alt="about detail image">
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants&src=typed_query&f=top"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTACT</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{%url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="urban_umami web logo"></a>
+            </div>
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{%url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="resturant_banner">
+            <img src="{%static 'images/contact.png' %}" alt="resturant banner image">
+        </article>
+        <section>
+            <div class="resturant_contact_section">
+                <div>
+                    <img src="{%static 'images/contact_view.png' %}" alt="about detail image">
+                </div>
+                <div>
+                    <h1>Connect With Urban Umami</h1>
+                    <div>
+                        <h4>Address:</h4>
+                        <p>Urban Umami,<br>
+                            1st Floor, Vardhaman Crystal Plaza,<br>
+                            Road No. 12, Banjara Hills,<br>
+                            Hyderabad, Telangana – 500034</p>
+                    </div>
+                    <div>
+                        <h4>Contact Details :</h4>
+                        <p>Contact no:<br>
+                            9381853153 / 040-48563153</p>
+                        <p>Email :<br>
+                            urbanumami@2025.com</p>
+                    </div>
+                    <div>
+                        <h4>Working Hours :</h4>
+                        <p>Open 24/7 — Monday to Sunday</p>
+                    </div>
+                    <div class="button_div"><button type="button"><a href="{% url 'reserve' %}">Make a
+                                Reservation</a></button></div>
+                </div>
+            </div>
+        </section>
+        <aside>
+            <center>
+                <div class="resturant_contact_aside">
+                    <h2>CONTACT US :</h2>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <span>Full_name:</span>
+                        <input type="text" name="full_name" required><br>
+
+                        <span>Email_id :</span>
+                        <input type="email" name="email" required><br>
+
+                        <span>Phone_no:</span>
+                        <input type="text" name="phone" required><br>
+
+                        <span>Message :</span>
+                        <textarea name="message" required></textarea><br>
+
+                        <button type="submit">Send Message</button>
+                    </form>
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+            </center>
+        </aside>
+    </main>
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}" id="mark">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants&src=typed_query&f=top"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

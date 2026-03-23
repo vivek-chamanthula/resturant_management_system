@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Reservation</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <h2 id="reserve_main_head_h2">✏️ Update Reservation</h2>
+
+    <!-- Messages -->
+    {% if messages %}
+    {% for message in messages %}
+    <p class="{% if message.tags == 'success' %}msg-success{% else %}msg-error{% endif %}">
+        {{ message }}
+    </p>
+    {% endfor %}
+    {% endif %}
+
+    <center>
+        <div  class="reserve_main_div_2">
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                <small style="color:red;">{{ field.errors }}</small>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="reserve_btn"
+                onclick="return confirm('Are you sure you want to update this reservation?');">
+                Update Reservation
+            </button>
+        </form>
+        <br>
+        <a href="{% url 'reserve' %}">⬅ Back to Reservations</a>
+        </div>
+
+        
+    </center>
+
+</body>
+
+</html>

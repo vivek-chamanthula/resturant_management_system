@@ -1,0 +1,147 @@
+{% load static %}
+{% load menu_extras %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENU</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{%url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="urban_umami web logo"></a>
+            </div>
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}" id="mark">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{%url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="resturant_banner">
+            <img src="{%static 'images/menu.png' %}" alt="resturant banner image">
+        </article>
+        <section>
+            <div class="cart_icon">
+                {% if request.session.role == 'customer' %}
+                <a href="#" style="pointer-events: none; opacity: 0.5;">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                </a>
+                {% else %}
+                <a href="{% url 'cart' %}">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                </a>
+                {% endif %}
+            </div>
+            <div class="resturant_menu_food_section">
+                <div class="resturant_menu_food_section_left">
+                    <div class="resturant_menu_food_section_left_heading">
+                        <h1>CATEGORIES</h1>
+                    </div>
+                    <div class="resturant_menu_food_section_left_options">
+                        <select id="categorySelect">
+                            <option selected disabled>Chinese Dishes</option>
+                            <option value="appetizers">Appetizers</option>
+                            <option value="soups">Soups</option>
+                            <option value="noodles">Noodles</option>
+                            <option value="maincourse">Main Course</option>
+                        </select>
+                        <select id="indianSelect">
+                            <option selected disabled>Indian Dishes</option>
+                            <option value="starters">Starters</option>
+                            <option value="biryanis">Biryanis</option>
+                            <option value="curries">Curries</option>
+                            <option value="tandoori">Tandoori Items</option>
+                        </select>
+                        <select id="continental_dropdown">
+                            <option value="continental" selected aria-disabled="true">Continental Dishes</option>
+                            <option value="pasta">Pasta</option>
+                            <option value="pizza">Pizza</option>
+                            <option value="grilled">Grilled Items</option>
+                            <option value="salads">Salads</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="resturant_menu_food_section_right">
+                    {% for sc in subcategories %}
+                    <div class="menu_items_container" id="{{ sc.slug }}" style="display:none;">
+                        <div class="menu_items_grid">
+                            {% for item in items_by_slug|get_item:sc.slug %}
+                            <div class="menu_card">
+                                {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                                {% else %}
+                                <img src="{% static 'images/placeholder.png' %}" alt="no image">
+                                {% endif %}
+                                <h3>{{ item.name }}</h3>
+                                <p>{{ item.description }}</p>
+                                <p>₹ {{ item.price }}</p>
+
+                                {% if request.session.role == 'customer' %}
+                                <button class="add-btn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                    Add
+                                </button>
+                                {% else %}
+                                <button onclick="addToCart({{ item.id }})" class="add-btn">
+                                    Add
+                                </button>
+                                {% endif %}
+
+                            </div>
+                            {% empty %}
+                            <p>No items yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants&src=typed_query&f=top"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

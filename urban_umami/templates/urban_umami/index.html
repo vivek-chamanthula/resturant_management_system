@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBAN UMAMI</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="main_body">
+    {% if not request.session.logged_in|default:False %}
+    <div class="landing-overlay">
+        <div class="landing-content">
+            <h1>Welcome to Urban Umami</h1>
+            <p>Our restaurant is crafted to delight your taste buds and give you a truly memorable dining experience.
+                Enjoy our flavors, savor every bite, and create your best moments with us.
+                Please choose your role to continue.</p>
+
+            <div class="landing-buttons">
+                <a href="{% url 'waiter_login' %}" class="landing-btn">Waiter</a>
+                <a href="{% url 'customer_login' %}" class="landing-btn">Customer</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{%url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="urban_umami web logo"></a>
+            </div>
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{%url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="resturant_banner">
+            <img src="{%static 'images/banner3.png' %}" alt="resturant banner image">
+        </article>
+        <section class="resturant_index_section">
+            <h1>“Fresh flavors, unforgettable moments.”</h1>
+            <p>Explore our curated selection of Indian, Chinese, and Continental dishes — choose your favorite and savor
+                the taste you love.</p>
+        </section>
+        <aside class="resturant_index_aside">
+            <div>
+                <a href="{% url 'menu' %}"><img src="{% static 'images/indian_food.avif' %}"
+                        alt="Indian Cuisine Image"></a>
+                <h2>Indian Food</h2>
+            </div>
+            <div>
+                <a href="{% url 'menu' %}"><img src="{% static 'images/chinese_food.webp' %}"
+                        alt="Chinese Cuisine Image"></a>
+                <h2>Chinese Food</h2>
+            </div>
+            <div>
+                <a href="{% url 'menu' %}"><img src="{% static 'images/continental_food.webp' %}"
+                        alt="Continental Cuisine Image"></a>
+                <h2>Continental Food</h2>
+            </div>
+        </aside>
+        <section>
+            <div class="resturant_index_section_part1">
+                <div>
+                    <h1>Urban Umami</h1>
+                    <h2>Crafting Flavors, Creating Moments</h2>
+                    <p>At Urban Umami, every dish begins with passion and ends with an unforgettable experience.
+                        Our chefs blend global inspiration with local authenticity to craft meals that celebrate the
+                        true depth of umami.</p>
+                    <p>Whether you're exploring our carefully curated menu or planning a special dining experience,
+                        we bring together creativity, freshness, and warmth to make every moment memorable.</p>
+                    <p>Discover flavors that excite your palate.
+                        Reserve a table and enjoy the perfect balance of taste, ambiance, and hospitality.</p>
+
+                    <div class="resturant_index_section_part1_buttons">
+                        <button>
+                            <a href="{% url 'menu' %}">View Menu</a>
+                        </button>
+                        <button>
+                            <a href="{% url 'reserve' %}">Book Table</a>
+                        </button>
+                    </div>
+                </div>
+                <div><img src="{%static 'images/reserve.png' %}"></div>
+            </div>
+        </section>
+        <section>
+            <div class="resturant_index_section_part2">
+                <div class="resturant_chef-about">
+                    <h1>Meet the Chefs Behind Urban Umami</h1>
+                    <p>Inspired minds. Skilled hands. Exceptional flavors.</p>
+                    <p>These are the chefs who define the Urban Umami experience.</p>
+                </div>
+                <div class="resturant_chef-information">
+
+                    <div class="chef-info1">
+                        <img src="{% static 'images/chef1.png' %}" alt="Arjun Malhotra">
+                        <h3>Arjun Malhotra</h3>
+                    </div>
+
+                    <div class="chef-info2">
+                        <img src="{% static 'images/chef2.png' %}" alt="Rohan Devraj">
+                        <h3>Mira Sen </h3>
+                    </div>
+
+                    <div class="chef-info3">
+                        <img src="{% static 'images/chef3.png' %}" alt="Anika Verma">
+                        <h3>Anika Verma</h3>
+                    </div>
+
+                    <div class="chef-info4">
+                        <img src="{% static 'images/chef4.png' %}" alt="Mira Sen">
+                        <h3>Rohan Devraj</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="resturant_index_section_part3">
+                <h1>What Makes Us Unique</h1>
+                <p>At Urban Umami, we blend global flavors with local authenticity to create a dining experience that
+                    feels both familiar and exciting.
+                    Every dish is crafted with fresh ingredients, balanced flavors, and a touch of creativity that sets
+                    us apart.</p>
+                <p>From our carefully curated menu to our warm, modern ambiance, we focus on delivering moments that
+                    stay with you long after the meal ends.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants&src=typed_query&f=top"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
+
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {% if user.is_authenticated %}
+    <script>
+        const overlay = document.querySelector('.landing-overlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+            setTimeout(() => overlay.remove(), 600);
+        }
+    </script>
+    {% endif %}
+</body>
+
+</html>

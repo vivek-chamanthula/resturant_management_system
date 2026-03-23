@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMS AND CONDITIONS</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <script src="https://kit.fontawesome.com/22743b5cbb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="resturant_nav">
+            <div class="resturant_logo">
+                <a href="{%url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="urban_umami web logo"></a>
+            </div>
+            
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="resturant_nav_items">
+                <ul type="none">
+                    <li><a href="{% url 'menu' %}">MENU</a></li>
+                    <li>
+                    {% if request.session.role == 'customer' %}
+                    <a href="#" id="order">ORDER</a>
+                    {% else %}
+                    <a href="{% url 'order' %}">ORDER</a>
+                    {% endif %}
+                    </li>
+                    <li><a href="{%url 'reserve' %}">RESERVE</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="resturant_login">
+                <a href="{% url 'logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="resturant_terms_article">
+            <h1>Terms & Conditions — Urban Umami</h1>
+            <p>Welcome to Urban Umami. By accessing or using our website, products, or services, you agree to the
+                following Terms & Conditions. Please read them carefully.</p>
+        </article>
+        <section class="resturant_terms_section">
+            <div>
+                <h2>1.General</h2>
+                <ul type="disc">
+                    <li>Urban Umami is a food service brand offering Indian, Chinese, and Continental cuisine.</li>
+                    <li>By using our website or visiting our restaurant, you accept these Terms & Conditions.</li>
+                    <li>We may update or change these terms at any time without prior notice.</li>
+                </ul>
+            </div>
+            <div>
+                <h2>2.Reservations & Orders</h2>
+                <ul type="disc">
+                    <li>All table reservations, online bookings, and food orders are subject to availability.</li>
+                    <li>Prices, menu items, and offers may change without prior notice.</li>
+                    <li>We reserve the right to accept or decline any order based on availability, safety, or
+                        operational reasons</li>
+                </ul>
+            </div>
+            <div>
+                <h2>3.Payments</h2>
+                <ul type="disc">
+                    <li>We accept online payments, UPI, credit/debit cards, and cash.</li>
+                    <li>All payments must be completed before food is delivered or served.</li>
+                    <li>Refunds will be processed only for valid issues such as wrong items or unserved orders</li>
+                </ul>
+            </div>
+            <div>
+                <h2>4.Delivery & Takeaway</h2>
+                <ul type="disc">
+                    <li>Delivery time may vary based on location, weather, and traffic.</li>
+                    <li>Once an order is delivered, Urban Umami is not responsible for food spoilage due to delays in
+                        consumption.</li>
+                    <li>Delivery charges may apply based on location.</li>
+                </ul>
+            </div>
+            <div>
+                <h2>5.Food Allergies & Dietary Information</h2>
+                <ul type="disc">
+                    <li>Some dishes may contain nuts, dairy, gluten, or allergens.</li>
+                    <li>Customers must inform our staff about allergies or dietary restrictions before ordering</li>
+                    <li>Urban Umami is not responsible for allergic reactions if information is not provided beforehand.
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2>6.Website Usage</h2>
+                <ul type="disc">
+                    <li>Users must not misuse the website by spreading malware, hacking attempts, or fake orders.</li>
+                    <li>All text, images, logos, and design on this website belong to Urban Umami and cannot be copied
+                        without permission.</li>
+                    <li>User data submitted through forms will be kept confidential and used only for service-related
+                        purposes.</li>
+                </ul>
+            </div>
+            <div>
+                <h2>7.Behavior & Safety</h2>
+                <ul type="disc">
+                    <li>We reserve the right to refuse service to any customer who displays inappropriate behavior.</li>
+                    <li>Damage to restaurant property may result in charges.</li>
+                    <li>Security camera footage may be used for safety and verification purposes.</li>
+                </ul>
+            </div>
+        </section>
+        <aside class="resturant_terms_aside">
+            <div>
+                <h2>8.Cancellations & Refunds</h2>
+                <ul>
+                    <li>Orders can be canceled within a short time frame before preparation begins.</li>
+                    <li>Once food preparation starts, cancellations may not be accepted.</li>
+                    <li>Refunds, if approved, will be processed within 3–7 working days.</li>
+                </ul>
+            </div>
+            <div>
+                <h2>9.Privacy</h2>
+                <p>Your personal details (name, phone number, email, address) will be used strictly to provide services
+                    and will not be shared with third parties except delivery partners.</p>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <p>For any questions regarding these Terms & Conditions, please reach out:</p>
+                <p>Urban Umami<br>
+                    1st Floor, Vardhaman Crystal Plaza,<br>
+                    Road No. 12, Banjara Hills, Hyderabad – 500034<br>
+                    Open 24/7 — Monday to Sunday</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="resturant_footer">
+            <div class="resturant_footer_div1">
+                <a href="{% url 'contact' %}">CONTACT US</a>
+                <a href="{% url 'terms' %}" id="mark">TERMS OF CONDITIONS</a>
+                <a href="{% url 'privacy' %}">PRIVACY POLICY</a>
+                <a href="{% url 'feedback' %}">FEEDBACK</a>
+            </div>
+            <div class="resturant_footer_div2">
+                <a href="https://www.instagram.com/urbanumami_restaurant/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/search?q=spicy%20food%20resturants&src=typed_query&f=top"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.youtube.com/results?search_query=urban+umami+resturant"><i
+                        class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p class="resturant_copy">&copy; 2025 Urban Umami. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

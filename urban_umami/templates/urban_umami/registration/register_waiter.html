@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAITER REGISTRATION</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+</head>
+<style>
+    body {
+        background-image: url("{% static 'images/login_background.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top;
+    }
+</style>
+
+<body>
+    <main class="resturant_credentials_main">
+        <div class="resturant_credentials">
+            <div>
+                <h2>Waiter Registration</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name="waiter_submit">Register Waiter</button>
+                </form>
+                <p>Already have an account ? <a href="{% url 'waiter_login' %}">Login</a></p>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
